@@ -2,6 +2,10 @@ import { BarChart3, TrendingUp, Users, Award, Download, Filter } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { EcoTreeScene } from "@/components/3D/EcoTreeScene";
+import { ParticleSystem } from "@/components/Interactive/ParticleSystem";
+import { AnimatedCounter } from "@/components/Interactive/AnimatedCounter";
+import { FloatingCard, PulseEffect } from "@/components/Interactive/HoverEffects";
 
 // Sample data for the analytics
 const analyticsData = {
@@ -70,59 +74,95 @@ export function AnalyticsDashboard() {
         </div>
       </div>
 
-      {/* Quick Insights */}
+      {/* Interactive Quick Insights */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="stats-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Active Students</p>
-                <p className="text-2xl font-bold text-foreground">{analyticsData.overview.activeStudents}</p>
-                <p className="text-xs text-success">+12% this month</p>
+        <FloatingCard className="relative">
+          <Card className="stats-card border-0 overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Active Students</p>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.activeStudents}
+                    className="text-2xl font-bold text-foreground"
+                  />
+                  <p className="text-xs text-success animate-pulse">+12% this month</p>
+                </div>
+                <PulseEffect color="hsl(var(--primary))">
+                  <Users className="h-8 w-8 text-primary" />
+                </PulseEffect>
               </div>
-              <Users className="h-8 w-8 text-primary" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-full -translate-y-10 translate-x-10" />
+          </Card>
+        </FloatingCard>
 
-        <Card className="stats-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Completion Rate</p>
-                <p className="text-2xl font-bold text-foreground">{analyticsData.overview.completionRate}%</p>
-                <p className="text-xs text-success">+5.2% this week</p>
+        <FloatingCard className="relative">
+          <Card className="stats-card border-0 overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Completion Rate</p>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.completionRate}
+                    suffix="%"
+                    decimals={1}
+                    className="text-2xl font-bold text-foreground"
+                  />
+                  <p className="text-xs text-success animate-pulse">+5.2% this week</p>
+                </div>
+                <PulseEffect color="hsl(var(--success))">
+                  <TrendingUp className="h-8 w-8 text-success" />
+                </PulseEffect>
               </div>
-              <TrendingUp className="h-8 w-8 text-success" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-success/5 rounded-full -translate-y-10 translate-x-10" />
+          </Card>
+        </FloatingCard>
 
-        <Card className="stats-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Average Score</p>
-                <p className="text-2xl font-bold text-foreground">{analyticsData.overview.averageScore}%</p>
-                <p className="text-xs text-success">+2.1% improvement</p>
+        <FloatingCard className="relative">
+          <Card className="stats-card border-0 overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Average Score</p>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.averageScore}
+                    suffix="%"
+                    decimals={1}
+                    className="text-2xl font-bold text-foreground"
+                  />
+                  <p className="text-xs text-success animate-pulse">+2.1% improvement</p>
+                </div>
+                <PulseEffect color="hsl(var(--accent))">
+                  <Award className="h-8 w-8 text-accent" />
+                </PulseEffect>
               </div>
-              <Award className="h-8 w-8 text-accent" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-full -translate-y-10 translate-x-10" />
+          </Card>
+        </FloatingCard>
 
-        <Card className="stats-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Eco-Points</p>
-                <p className="text-2xl font-bold text-foreground">{analyticsData.overview.totalEcoPoints.toLocaleString()}</p>
-                <p className="text-xs text-success">+892 this week</p>
+        <FloatingCard className="relative">
+          <Card className="stats-card border-0 overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Total Eco-Points</p>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.totalEcoPoints}
+                    className="text-2xl font-bold text-foreground"
+                  />
+                  <p className="text-xs text-success animate-pulse">+892 this week</p>
+                </div>
+                <PulseEffect color="hsl(var(--warning))">
+                  <BarChart3 className="h-8 w-8 text-warning" />
+                </PulseEffect>
               </div>
-              <BarChart3 className="h-8 w-8 text-warning" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-warning/5 rounded-full -translate-y-10 translate-x-10" />
+          </Card>
+        </FloatingCard>
       </div>
 
       {/* Charts Section */}
@@ -146,36 +186,50 @@ export function AnalyticsDashboard() {
           </CardContent>
         </Card>
 
-        {/* Eco-Impact Visualization */}
-        <Card className="eco-card">
+        {/* Interactive 3D Eco-Garden */}
+        <Card className="eco-card overflow-hidden">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <div className="w-5 h-5 bg-success rounded-full flex items-center justify-center">
                 <span className="text-xs">🌱</span>
               </div>
-              <span>Class Eco-Garden Growth</span>
+              <span>Interactive Eco-Garden</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="h-64 bg-gradient-to-t from-success/10 to-success/5 rounded-lg flex items-center justify-center relative overflow-hidden">
-              <div className="text-center">
-                <div className="text-6xl mb-4">🌳</div>
-                <p className="text-lg font-semibold text-success">Tree Level: 12</p>
-                <p className="text-sm text-muted-foreground">Growing with class eco-points</p>
-                <div className="mt-4 grid grid-cols-3 gap-4 text-xs">
-                  <div className="text-center">
-                    <div className="text-lg">💧</div>
-                    <p className="text-muted-foreground">{analyticsData.overview.waterSaved}L saved</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg">🌿</div>
-                    <p className="text-muted-foreground">{analyticsData.overview.co2Saved}kg CO₂</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg">🌳</div>
-                    <p className="text-muted-foreground">{analyticsData.overview.treesEquivalent} trees</p>
-                  </div>
-                </div>
+          <CardContent className="p-0">
+            <div className="relative">
+              <EcoTreeScene ecoPoints={analyticsData.overview.totalEcoPoints} />
+              <ParticleSystem 
+                className="opacity-60"
+                particleCount={30}
+                types={['leaf', 'sparkle']}
+              />
+              <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-4 text-xs bg-white/90 backdrop-blur-sm rounded-lg p-3">
+                <FloatingCard className="text-center">
+                  <div className="text-lg">💧</div>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.waterSaved} 
+                    suffix="L saved"
+                    className="text-muted-foreground text-xs"
+                  />
+                </FloatingCard>
+                <FloatingCard className="text-center">
+                  <div className="text-lg">🌿</div>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.co2Saved} 
+                    suffix="kg CO₂"
+                    decimals={1}
+                    className="text-muted-foreground text-xs"
+                  />
+                </FloatingCard>
+                <FloatingCard className="text-center">
+                  <div className="text-lg">🌳</div>
+                  <AnimatedCounter 
+                    value={analyticsData.overview.treesEquivalent} 
+                    suffix=" trees"
+                    className="text-muted-foreground text-xs"
+                  />
+                </FloatingCard>
               </div>
             </div>
           </CardContent>
