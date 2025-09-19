@@ -2,8 +2,7 @@ import { BarChart3, TrendingUp, Users, Award, Download, Filter } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { EcoTreeScene } from "@/components/3D/EcoTreeScene";
-import { ParticleSystem } from "@/components/Interactive/ParticleSystem";
+// Removed 3D components to fix rendering conflicts
 import { AnimatedCounter } from "@/components/Interactive/AnimatedCounter";
 import { FloatingCard, PulseEffect } from "@/components/Interactive/HoverEffects";
 
@@ -186,50 +185,68 @@ export function AnalyticsDashboard() {
           </CardContent>
         </Card>
 
-        {/* Interactive 3D Eco-Garden */}
-        <Card className="eco-card overflow-hidden">
+        {/* Interactive Eco Impact Visualization */}
+        <Card className="eco-card">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <div className="w-5 h-5 bg-success rounded-full flex items-center justify-center">
                 <span className="text-xs">🌱</span>
               </div>
-              <span>Interactive Eco-Garden</span>
+              <span>Eco Impact Visualization</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-0">
-            <div className="relative">
-              <EcoTreeScene ecoPoints={analyticsData.overview.totalEcoPoints} />
-              <ParticleSystem 
-                className="opacity-60"
-                particleCount={30}
-                types={['leaf', 'sparkle']}
-              />
-              <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-4 text-xs bg-white/90 backdrop-blur-sm rounded-lg p-3">
-                <FloatingCard className="text-center">
-                  <div className="text-lg">💧</div>
+          <CardContent>
+            <div className="h-64 bg-gradient-to-br from-success/10 via-primary/5 to-accent/10 rounded-lg p-6 relative overflow-hidden">
+              {/* Animated Background Pattern */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute top-4 left-4 w-3 h-3 bg-success rounded-full animate-pulse" />
+                <div className="absolute top-12 right-8 w-2 h-2 bg-primary rounded-full animate-ping" />
+                <div className="absolute bottom-8 left-12 w-4 h-4 bg-accent rounded-full animate-bounce" />
+                <div className="absolute bottom-4 right-4 w-3 h-3 bg-warning rounded-full animate-pulse" />
+              </div>
+              
+              {/* Eco Stats Display */}
+              <div className="relative z-10 h-full flex flex-col justify-center">
+                <div className="text-center mb-6">
+                  <div className="text-6xl mb-2">🌳</div>
                   <AnimatedCounter 
-                    value={analyticsData.overview.waterSaved} 
-                    suffix="L saved"
-                    className="text-muted-foreground text-xs"
+                    value={analyticsData.overview.totalEcoPoints}
+                    className="text-3xl font-bold text-foreground"
                   />
-                </FloatingCard>
-                <FloatingCard className="text-center">
-                  <div className="text-lg">🌿</div>
-                  <AnimatedCounter 
-                    value={analyticsData.overview.co2Saved} 
-                    suffix="kg CO₂"
-                    decimals={1}
-                    className="text-muted-foreground text-xs"
-                  />
-                </FloatingCard>
-                <FloatingCard className="text-center">
-                  <div className="text-lg">🌳</div>
-                  <AnimatedCounter 
-                    value={analyticsData.overview.treesEquivalent} 
-                    suffix=" trees"
-                    className="text-muted-foreground text-xs"
-                  />
-                </FloatingCard>
+                  <p className="text-sm text-muted-foreground">Total Eco-Points Generated</p>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <FloatingCard className="bg-white/50 backdrop-blur-sm rounded-lg p-3">
+                    <div className="text-2xl">💧</div>
+                    <AnimatedCounter 
+                      value={analyticsData.overview.waterSaved} 
+                      suffix="L"
+                      className="text-sm font-semibold text-primary"
+                    />
+                    <p className="text-xs text-muted-foreground">Water Saved</p>
+                  </FloatingCard>
+                  
+                  <FloatingCard className="bg-white/50 backdrop-blur-sm rounded-lg p-3">
+                    <div className="text-2xl">🌿</div>
+                    <AnimatedCounter 
+                      value={analyticsData.overview.co2Saved} 
+                      suffix="kg"
+                      decimals={1}
+                      className="text-sm font-semibold text-success"
+                    />
+                    <p className="text-xs text-muted-foreground">CO₂ Reduced</p>
+                  </FloatingCard>
+                  
+                  <FloatingCard className="bg-white/50 backdrop-blur-sm rounded-lg p-3">
+                    <div className="text-2xl">🌳</div>
+                    <AnimatedCounter 
+                      value={analyticsData.overview.treesEquivalent} 
+                      className="text-sm font-semibold text-accent"
+                    />
+                    <p className="text-xs text-muted-foreground">Trees Equivalent</p>
+                  </FloatingCard>
+                </div>
               </div>
             </div>
           </CardContent>
