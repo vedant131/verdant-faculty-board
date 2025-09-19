@@ -37,7 +37,7 @@ export function Navigation({ activeSection, onSectionChange }: NavigationProps) 
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">EcoEdu</h1>
-              <p className="text-sm text-muted-foreground">Faculty Dashboard</p>
+              <p className="text-sm text-muted-foreground">Admin Dashboard</p>
             </div>
           </div>
 
